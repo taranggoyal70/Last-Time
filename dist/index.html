@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LastTime learns the repeatable work you never want to do again." />
+    <title>LastTime — show it once, get your afternoon back</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="menu-bar">
+      <a class="brand" href="/app" data-route aria-label="LastTime home"><span class="brand-clock"><i></i></span><strong>last time.</strong></a>
+      <nav class="product-nav" aria-label="Product navigation">
+        <a href="/app" data-route>Today</a>
+        <a href="/teach" data-route>Teach</a>
+        <a href="/workflows" data-route>Workflows</a>
+        <a href="/activity" data-route>Activity</a>
+        <a href="/connections" data-route>Connections</a>
+      </nav>
+      <div class="menu-actions">
+        <button id="soundButton" class="menu-button" type="button" aria-pressed="true">sound on</button>
+        <button id="resetButton" class="menu-button" type="button">start over</button>
+        <div class="user-chip" aria-label="Demo workspace">T</div>
+      </div>
+    </header>
+
+    <main class="product-page" id="dashboardPage" data-page="dashboard" hidden>
+      <section class="product-heading dashboard-heading">
+        <div><p class="eyebrow">TODAY · YOUR WORK CREW</p><h1>Good afternoon.<br /><em>What should disappear next?</em></h1></div>
+        <a class="paper-button primary" href="/teach" data-route>Teach a workflow <span>→</span></a>
+      </section>
+      <section class="metric-strip" aria-label="Workspace summary">
+        <article><span>ACTIVE ROUTINES</span><strong id="metricWorkflows">—</strong><small>ready to help</small></article>
+        <article><span>FINISHED RUNS</span><strong id="metricRuns">—</strong><small>real completed work</small></article>
+        <article><span>NEEDS YOU</span><strong id="metricWaiting">—</strong><small>judgment calls</small></article>
+        <article class="storage-metric"><span>MEMORY</span><strong id="metricStorage">checking</strong><small>where your crew remembers</small></article>
+      </section>
+      <section class="product-grid">
+        <div class="product-panel routines-panel">
+          <div class="panel-title"><div><span>MY ROUTINES</span><h2>Work that runs without chasing it</h2></div><a href="/workflows" data-route>See all →</a></div>
+          <div id="dashboardWorkflows" class="routine-list loading-list"><p>Loading your real workflows…</p></div>
+        </div>
+        <aside class="product-panel next-panel">
+          <div class="panel-title"><div><span>NEXT UP</span><h2>What the crew is watching</h2></div></div>
+          <div class="next-run-card"><div class="person mint awake"><span class="cap"></span><i></i><i></i><b></b></div><div><span>NO SCHEDULE YET</span><b>Teach one routine, then choose when it should run.</b><small>InstaCloud will wake it at the right time.</small></div></div>
+          <a class="paper-button" href="/teach" data-route>Build the first routine</a>
+        </aside>
+      </section>
+      <section class="starter-section">
+        <div class="panel-title"><div><span>GOOD FIRST JOBS</span><h2>Start with something you already avoid</h2></div></div>
+        <div class="starter-grid">
+          <a href="/teach?recipe=receipts" data-route><i>🧾</i><b>Expense receipts</b><small>Mail → card → report</small></a>
+          <a href="/teach?recipe=inbox" data-route><i>✉️</i><b>Lead follow-ups</b><small>Research → reply → remind</small></a>
+          <a href="/teach?recipe=meeting" data-route><i>🗣</i><b>Meeting to tasks</b><small>Notes → owners → project</small></a>
+          <a href="/teach?recipe=report" data-route><i>📊</i><b>Weekly report</b><small>Numbers → summary → team</small></a>
+        </div>
+      </section>
+    </main>
+
+    <main class="product-page" id="workflowsPage" data-page="workflows" hidden>
+      <section class="product-heading compact-heading"><div><p class="eyebrow">THE PLAYBOOK</p><h1>Your workflows</h1><p>Every routine your crew has learned, with its trigger and last real run.</p></div><a class="paper-button primary" href="/teach" data-route>Teach a new one <span>→</span></a></section>
+      <section class="product-panel table-panel">
+        <div class="workflow-table-head"><span>Workflow</span><span>Trigger</span><span>Steps</span><span>Status</span><span>Last run</span></div>
+        <div id="workflowTable" class="workflow-table loading-list"><p>Loading workflows from storage…</p></div>
+      </section>
+    </main>
+
+    <main class="product-page" id="activityPage" data-page="activity" hidden>
+      <section class="product-heading compact-heading"><div><p class="eyebrow">THE PAPER TRAIL</p><h1>Activity & proof</h1><p>What ran, what changed, and the provider receipt behind it.</p></div><button class="paper-button" id="refreshActivity" type="button">Refresh live proof</button></section>
+      <section class="proof-summary" id="activityProof"><div class="proof-skeleton">Checking the providers directly…</div></section>
+      <section class="product-panel activity-panel"><div class="panel-title"><div><span>RECENT EVENTS</span><h2>Nothing hidden behind “AI magic”</h2></div></div><div id="activityTimeline" class="activity-timeline loading-list"><p>Loading the audit trail…</p></div></section>
+    </main>
+
+    <main class="product-page" id="connectionsPage" data-page="connections" hidden>
+      <section class="product-heading compact-heading"><div><p class="eyebrow">UNDER THE HOOD</p><h1>Connections</h1><p>Each service has one clear job. We check it live before showing “connected.”</p></div><button class="paper-button" id="refreshConnections" type="button">Check again</button></section>
+      <section class="connection-grid" id="connectionGrid">
+        <article data-connection="engine"><div class="connection-mark">E</div><div><span>AGENT BRAIN</span><h2>Eve + OpenAI</h2><p>Learns the workflow and asks for missing judgment.</p></div><em>checking</em></article>
+        <article data-connection="agent37"><div class="connection-mark a37">A37</div><div><span>WORKER</span><h2>Agent37</h2><p>Executes approved work in connected tools.</p></div><em>checking</em></article>
+        <article data-connection="supabase"><div class="connection-mark supa">⌁</div><div><span>MEMORY</span><h2>Supabase</h2><p>Stores workflows, runs, events, and proof receipts.</p></div><em>checking</em></article>
+        <article data-connection="monid"><div class="connection-mark monid">M</div><div><span>VERIFICATION</span><h2>Monid</h2><p>Checks merchants before the crew trusts external data.</p></div><em>checking</em></article>
+        <article data-connection="instacloud"><div class="connection-mark insta">I</div><div><span>SCHEDULER + CLOUD</span><h2>InstaCloud</h2><p>Wakes scheduled workflows and hosts the product runtime.</p></div><em>checking</em></article>
+      </section>
+      <section class="connection-note"><div class="person yellow awake"><span class="glasses"></span><i></i><i></i><b></b></div><p><b>No green theatre.</b> A connection turns green only after the server reaches the real provider or finds its linked cloud project.</p></section>
+    </main>
+
+    <main class="page-shell" id="teachPage" data-page="teach" hidden>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">A VERY SMALL TEAM FOR VERY BORING WORK</p>
+          <h1>Show it once.<br /><em>Get your afternoon back.</em></h1>
+        </div>
+        <div class="intro-note"><span class="tape"></span><p>“It’s like training a new teammate,<br />except they never forget.”</p><small>— the whole idea</small></div>
+      </section>
+
+      <section class="app-window" aria-label="LastTime workflow builder">
+        <div class="window-bar">
+          <div class="traffic-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="window-title"><span>last time</span> / new routine</div>
+          <button class="demo-label" id="engineStatus" type="button" aria-live="polite" aria-haspopup="dialog"><i></i><span>CHECKING ENGINE</span></button>
+        </div>
+
+        <div class="app-body">
+          <aside class="task-sidebar">
+            <div class="sidebar-heading"><span>What should we take<br />off your plate?</span><small>Pick one, or describe your own.</small></div>
+            <div class="recipe-label"><span>Try a recipe</span><small>20-second showpiece</small></div>
+            <div class="task-list" role="listbox" aria-label="Workflow examples">
+              <button class="task-option selected" type="button" data-task="receipts" role="option" aria-selected="true"><span class="task-icon yellow">🧾</span><span><b>Expense receipts</b><small>Inbox → card → report</small></span><i>12</i></button>
+              <button class="task-option" type="button" data-task="inbox" role="option" aria-selected="false"><span class="task-icon coral">✉️</span><span><b>Inbox follow-ups</b><small>Research → reply → remind</small></span><i>8</i></button>
+              <button class="task-option" type="button" data-task="meeting" role="option" aria-selected="false"><span class="task-icon mint">🗣</span><span><b>Meeting to tasks</b><small>Notes → owners → project</small></span><i>6</i></button>
+              <button class="task-option" type="button" data-task="report" role="option" aria-selected="false"><span class="task-icon blue">📊</span><span><b>Weekly report</b><small>Numbers → summary → team</small></span><i>5</i></button>
+              <button class="task-option" type="button" data-task="files" role="option" aria-selected="false"><span class="task-icon lilac">📁</span><span><b>File cleanup</b><small>Read → rename → file</small></span><i>24</i></button>
+            </div>
+            <form class="custom-task" id="customTaskForm">
+              <div class="custom-task-title"><span>Teach your own workflow</span><b>REAL</b></div>
+              <label class="sr-only" for="customTaskInput">Workflow to replace</label>
+              <input id="customTaskInput" type="text" maxlength="90" placeholder="e.g. publish podcast clips" />
+              <div class="impact-inputs">
+                <label><span>It repeats</span><select id="frequencyInput"><option value="weekly">every week</option><option value="weekdays">every workday</option><option value="monthly">every month</option><option value="daily">every day</option></select></label>
+                <label><span>It takes</span><span class="minutes-input"><input id="minutesInput" type="number" inputmode="numeric" min="5" max="480" step="5" value="45" /><i>min</i></span></label>
+              </div>
+              <button class="build-crew" type="submit">Build my crew <span>→</span></button>
+            </form>
+            <div class="honest-note"><span>Good to know</span><p>LastTime works best on repeatable computer tasks. When the answer isn't obvious, it asks you.</p></div>
+          </aside>
+
+          <div class="workbench">
+            <div class="workbench-topline">
+              <div><span class="mode-label" id="modeLabel">READY TO LEARN</span><h2 id="routineTitle">Clear my expense receipts</h2></div>
+              <div class="saved-time"><span id="impactLabel">saved this month</span><strong id="savedTime">0 min</strong></div>
+            </div>
+
+            <div class="scene" id="scene">
+              <div class="path-line" aria-hidden="true"><i></i><i></i></div>
+              <article class="mini-app active" data-app="0">
+                <div class="mini-app-bar"><span class="app-symbol" id="appSymbol0">✉</span><b id="appName0">Mail</b><i>•••</i></div>
+                <div class="mini-app-content" id="appContent0"></div>
+                <button class="teach-step" type="button" data-step="0"><span id="stepText0">Open today's receipt</span><i>do it →</i></button><div class="learned-stamp">learned ✓</div>
+              </article>
+              <article class="mini-app" data-app="1">
+                <div class="mini-app-bar"><span class="app-symbol" id="appSymbol1">$</span><b id="appName1">Card</b><i>•••</i></div>
+                <div class="mini-app-content" id="appContent1"></div>
+                <button class="teach-step" type="button" data-step="1" disabled><span id="stepText1">Find the matching charge</span><i>do it →</i></button><div class="learned-stamp">learned ✓</div>
+              </article>
+              <article class="mini-app" data-app="2">
+                <div class="mini-app-bar"><span class="app-symbol" id="appSymbol2">▦</span><b id="appName2">Report</b><i>•••</i></div>
+                <div class="mini-app-content" id="appContent2"></div>
+                <button class="teach-step" type="button" data-step="2" disabled><span id="stepText2">Add it to Friday's report</span><i>do it →</i></button><div class="learned-stamp">learned ✓</div>
+              </article>
+              <div class="mouse-helper" id="mouseHelper"><div class="helper-face"><i></i><i></i><b></b></div><div class="helper-bubble" id="helperBubble">I'll watch how you do one.<br /><b>You can keep the judgment calls.</b></div></div>
+              <div class="flying-card" id="flyingCard" aria-hidden="true"><span>🧾</span><b>Fog City Diner</b><small>$186.42</small></div>
+            </div>
+
+            <section class="live-session" id="liveSession" aria-label="Live workflow learning session" hidden>
+              <div class="live-session-head"><span><i></i> LIVE LEARNING SESSION</span><small id="sessionMeta">durable · private to this workspace</small></div>
+              <div class="live-session-body"><div class="scout-mini" aria-hidden="true"><i></i><i></i><b></b></div><p id="liveMessage">Your crew will ask for one real example, learn the rules, and save a reusable routine.</p></div>
+              <form class="live-reply" id="liveReplyForm" hidden><label class="sr-only" for="liveReplyInput">Reply to your agent</label><input id="liveReplyInput" type="text" maxlength="600" placeholder="Reply with a real example…" /><button type="submit">Send <span>→</span></button></form>
+            </section>
+
+            <div class="action-dock">
+              <div class="progress-copy"><span id="progressLabel">Nothing is being recorded yet</span><div class="progress-dots" aria-label="Learning progress"><i></i><i></i><i></i></div></div>
+              <button class="primary-action" id="primaryAction" type="button"><span id="primaryTop">TEACH ONE EXAMPLE</span><b id="primaryMain">Show me how</b><i>→</i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="crew-drawer">
+          <div class="crew-heading"><span>Your crew</span><small id="crewStatus">waiting for a job</small></div>
+          <div class="crew-list">
+            <div class="crew-member"><div class="person peach"><span class="hair"></span><i></i><i></i><b></b><em>z</em></div><span><b>Scout</b><small>finds the work</small></span></div>
+            <div class="crew-member"><div class="person mint"><span class="cap"></span><i></i><i></i><b></b><em>z</em></div><span><b>Click</b><small>does the steps</small></span></div>
+            <div class="crew-member"><div class="person yellow"><span class="glasses"></span><i></i><i></i><b></b><em>z</em></div><span><b>Doublecheck</b><small>catches mistakes</small></span></div>
+            <div class="crew-member"><div class="person lilac"><span class="bun"></span><i></i><i></i><b></b><em>z</em></div><span><b>Done</b><small>files the result</small></span></div>
+          </div>
+          <div class="queue-card"><span class="queue-stack"><i></i><i></i><i></i></span><span><small>IN THE PILE</small><b id="queueCount">12 things</b></span></div>
+          <button class="instant-demo" id="instantDemo" type="button">▶ run the 20-second demo</button>
+        </div>
+      </section>
+
+      <section class="trust-row"><p><b>Real work, not magic.</b> It watches the outcome you create, remembers your rules, and asks before anything risky.</p><div class="tool-row" aria-label="Sponsor integrations"><span><i>A37</i> Agent37 runs the crew</span><span><i>◎</i> OpenAI understands</span><span><i>⌁</i> Supabase remembers</span><span><i>M</i> Monid verifies</span><span><i>I</i> InstaCloud wakes it</span></div></section>
+    </main>
+
+    <div class="question-sheet" id="questionSheet" role="dialog" aria-modal="true" aria-labelledby="questionTitle" hidden>
+      <div class="question-person"><div class="person yellow awake"><span class="glasses"></span><i></i><i></i><b></b></div></div>
+      <div class="question-copy"><span>I'M NOT SURE ABOUT THIS ONE</span><h2 id="questionTitle">Dinner with Maya<br />looks like it could be personal.</h2><p>Should I include the $248.90 charge from North Beach Social?</p><div class="question-buttons"><button type="button" data-answer="skip">No, skip it</button><button type="button" data-answer="include">Yes, client dinner <span>→</span></button></div><small>I'll remember this choice for similar calendar events.</small></div>
+    </div>
+
+    <div class="finish-sheet" id="finishSheet" role="dialog" aria-modal="true" aria-labelledby="finishTitle" hidden>
+      <div class="finish-art"><div class="done-tray"><span>DONE</span><div class="paper-one"></div><div class="paper-two"></div><div class="paper-three"></div></div><div class="finish-crew"><div class="person peach awake"><i></i><i></i><b></b></div><div class="person mint awake"><i></i><i></i><b></b></div><div class="person yellow awake"><i></i><i></i><b></b></div><div class="person lilac awake"><i></i><i></i><b></b></div></div></div>
+      <div class="finish-copy"><span>THE CREW FINISHED</span><h2 id="finishTitle">Twelve receipts.<br /><em>Zero Saturday.</em></h2><p id="finishDescription">Your report is ready, the receipts are filed, and the next one will be handled automatically.</p><div class="finish-stats"><div><b id="finishedCount">12</b><span>completed</span></div><div><b>47 min</b><span>given back</span></div><div><b>1</b><span>question asked</span></div></div><div class="finish-actions"><button id="downloadButton" type="button">Download the report</button><button id="againButton" type="button">Teach another task</button></div></div>
+      <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    </div>
+    <div class="setup-sheet" id="setupSheet" role="dialog" aria-modal="true" aria-labelledby="setupTitle" hidden>
+      <div class="setup-top"><span>UNDER THE HOOD</span><button id="closeSetup" type="button" aria-label="Close setup">×</button></div>
+      <div class="setup-copy"><p class="eyebrow">MAKE THE CREW REAL</p><h2 id="setupTitle">Connect the things<br />your crew needs.</h2><p>We check each service live. Missing setup stops the workflow instead of faking a result.</p></div>
+      <div class="setup-checklist">
+        <div data-readiness="engine"><i></i><span><b>Agent runtime</b><small>Durable sessions and tools</small></span><em>checking</em></div>
+        <div data-readiness="model"><i></i><span><b>OpenAI model</b><small>Understands and learns the workflow</small></span><em>checking</em></div>
+        <div data-readiness="agent37"><i></i><span><b>Agent37</b><small>Runs the workflow in connected apps</small></span><em>checking</em></div>
+        <div data-readiness="supabase"><i></i><span><b>Supabase</b><small>Production workflow memory</small></span><em>checking</em></div>
+        <div data-readiness="monid"><i></i><span><b>Monid</b><small>Verified external data when needed</small></span><em>checking</em></div>
+        <div data-readiness="instacloud"><i></i><span><b>InstaCloud</b><small>Scheduled wakes and production runtime</small></span><em>checking</em></div>
+      </div>
+      <div class="proof-panel" aria-live="polite">
+        <div class="proof-head"><span>LIVE PROVIDER RECEIPTS</span><button id="refreshProof" type="button">Refresh proof</button></div>
+        <div class="proof-grid">
+          <div><i>A37</i><span><b>Agent37</b><small id="agent37Proof">Looking for a real session…</small></span><em id="agent37ProofState">checking</em></div>
+          <div><i>M</i><span><b>Monid</b><small id="monidProof">Looking for a real verification run…</small></span><em id="monidProofState">checking</em></div>
+          <div><i>⌁</i><span><b>Supabase</b><small id="supabaseProof">Looking for production storage…</small></span><em id="supabaseProofState">checking</em></div>
+          <div><i>I</i><span><b>InstaCloud</b><small id="instacloudProof">Looking for a linked project…</small></span><em id="instacloudProofState">checking</em></div>
+        </div>
+        <p id="proofTimestamp">Only live provider data appears here—never staged IDs.</p>
+      </div>
+      <div class="setup-command"><span>MODEL LOGIN</span><code>cd lasttime/engine &amp;&amp; npm exec -- eve dev · then type /login</code><button id="copySetup" type="button">Copy</button></div>
+      <p class="setup-foot">Sponsor keys stay server-side in <code>engine/.env.local</code>—never in the browser.</p>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./product.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
