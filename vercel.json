@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "echo 'Using the committed static frontend in dist/'",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://prod-main-app-82e00e-00f1p52h6as.compute.instacloud-edge.com/api/:path*"
+    },
+    {
+      "source": "/eve/:path*",
+      "destination": "https://prod-main-app-82e00e-00f1p52h6as.compute.instacloud-edge.com/eve/:path*"
+    },
+    { "source": "/app", "destination": "/index.html" },
+    { "source": "/teach", "destination": "/index.html" },
+    { "source": "/workflows", "destination": "/index.html" },
+    { "source": "/activity", "destination": "/index.html" },
+    { "source": "/connections", "destination": "/index.html" }
+  ]
+}
