@@ -1,0 +1,10 @@
+.git
+.gstack
+.insta
+engine
+supabase
+node_modules
+.env*
+Dockerfile
+server.mjs
+start.mjs

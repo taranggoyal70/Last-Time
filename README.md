@@ -6,7 +6,7 @@
 
 **A tiny AI work crew that learns the repetitive task you hate, runs it for you, and asks before making a risky decision.**
 
-[Try the live product](https://prod-main-app-82e00e-00f1p52h6as.compute.instacloud-edge.com/teach) · [See the proof](https://prod-main-app-82e00e-00f1p52h6as.compute.instacloud-edge.com/activity) · [View the code](https://github.com/taranggoyal70/lasttime)
+[Try the live product](https://lasttime-umber.vercel.app/teach) · [See the proof](https://lasttime-umber.vercel.app/activity) · [View the code](https://github.com/taranggoyal70/lasttime)
 
 ![Agent37](https://img.shields.io/badge/Agent37-live-1e293b?style=flat-square)
 ![Monid](https://img.shields.io/badge/Monid-live-2563eb?style=flat-square)
