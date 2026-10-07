@@ -1,88 +1,124 @@
-# LASTTIME
+<div align="center">
 
-**Show it once. Get your afternoon back.**
+# last time.
 
-LASTTIME watches a person complete an annoying workflow once, captures the semantic actions and judgment behind it, and compiles those actions into a persistent agent skill.
+### Show it once. Get your afternoon back.
 
-The experience is a playful, realistic workbench rather than an abstract AI dashboard. Users can try a clearly labeled stage recipe or describe their own workflow, record how often it repeats and how long it takes, and see a grounded monthly time-recovery estimate before teaching the live agent.
+**A tiny AI work crew that learns the repetitive task you hate, runs it for you, and asks before making a risky decision.**
 
-The stage demo uses expense reconciliation as the default wedge:
+[Try the live product](https://prod-main-app-82e00e-00f1p52h6as.compute.instacloud-edge.com/teach) · [See the proof](https://prod-main-app-82e00e-00f1p52h6as.compute.instacloud-edge.com/activity) · [View the code](https://github.com/taranggoyal70/lasttime)
 
-1. The user demonstrates how to process one receipt.
-2. A small visible crew learns the inputs, decisions, and finished result.
-3. The crew carries the work through mail, a card record, and the report.
-4. One genuine edge case pauses for human judgment.
-5. The answer becomes policy, the run resumes, and a completed CSV is produced.
+![Agent37](https://img.shields.io/badge/Agent37-live-1e293b?style=flat-square)
+![Monid](https://img.shields.io/badge/Monid-live-2563eb?style=flat-square)
+![Supabase](https://img.shields.io/badge/Supabase-live-16a34a?style=flat-square)
+![InstaCloud](https://img.shields.io/badge/InstaCloud-live-f59e0b?style=flat-square)
 
-The built-in scenarios are clearly bounded stage fixtures. A custom user-described routine takes the real product path: it opens a dedicated durable Eve conversation, interviews the user for a concrete example, saves the resulting typed workflow, and only dispatches a future Agent37 run after explicit approval. The interface has a live readiness checklist for the runtime, OpenAI model, Agent37, Supabase, and Monid; incomplete setup is visible and actionable rather than hidden.
+</div>
+
+---
+
+## The annoying problem
+
+Every week, people repeat the same small workflows: match receipts, chase follow-ups, turn meeting notes into tasks, build reports, and clean up files.
+
+Traditional automation makes you design the workflow first. **LastTime learns by watching one good example.**
+
+## How it works
+
+| 1. Show it | 2. Teach the judgment | 3. Get your time back |
+|---|---|---|
+| Complete the task once while your crew watches. | When the answer is unclear, LastTime asks instead of guessing. | The learned workflow runs again through a persistent agent. |
+
+The default demo clears an expense receipt from an inbox, finds the matching card charge, adds it to a report, and pauses for one genuine policy decision.
+
+## Why it is different
+
+- **Learns from an example** — no flowchart builder or hundred-field setup form.
+- **Asks at the edge cases** — uncertainty becomes a reusable rule, not a silent mistake.
+- **Shows the paper trail** — every provider run has a real ID, timestamp, status, and cost when available.
+- **Built as a product** — saved workflows, persistent runs, activity history, connections, and production storage.
+- **Honest demo mode** — the 20-second showpiece is labeled; live provider data is never replaced with fake receipts.
+
+## The product
+
+| Screen | What it does |
+|---|---|
+| **Today** | Shows active work, completed runs, and time recovered. |
+| **Teach** | Captures a real workflow or runs the fast stage demo. |
+| **Workflows** | Holds the reusable jobs the crew has learned. |
+| **Activity** | Shows workflow events and live sponsor receipts. |
+| **Connections** | Reports which production services are actually reachable. |
+
+## Real sponsor usage
+
+```mermaid
+flowchart LR
+    U[One human example] --> O[OpenAI understands the work]
+    O --> E[Eve saves the reusable skill]
+    E --> A[Agent37 runs the worker]
+    A --> M[Monid verifies the merchant]
+    M --> S[Supabase stores runs and receipts]
+    I[InstaCloud hosts and wakes the agent] --> A
+```
+
+| Sponsor | What LastTime actually uses it for | Proof shown in the app |
+|---|---|---|
+| **Agent37** | Runs persistent workers and approved workflow jobs. | Instance and session IDs. |
+| **OpenAI** | Understands examples and turns actions into reusable workflow instructions. | Model and response receipt once connected. |
+| **Supabase** | Stores workflows, runs, events, and integration receipts behind RLS. | Live database health and stored receipts. |
+| **Monid** | Verifies merchants and entities before a worker acts. | Paid run ID, endpoint, status, and cost. |
+| **InstaCloud** | Hosts the full agent runtime and triggers scheduled wake-ups. | Project, deployment, and wake receipt. |
 
 ## Run locally
 
-From this directory, start the durable agent and the web app in separate terminals:
+```bash
+git clone https://github.com/taranggoyal70/lasttime.git
+cd lasttime
+npm install --prefix engine
+cp engine/.env.example engine/.env.local
+```
+
+Start the durable agent and product server in separate terminals:
 
 ```bash
 npm run dev:engine
 npm run dev:web
 ```
 
-Open <http://localhost:4173/app>. The product is still one fast web app, but it has real startup-style routes:
+Open [localhost:4173/teach](http://localhost:4173/teach).
 
-- `/app` — honest daily dashboard and time-saved metrics
-- `/teach` — the playful 20-second demo and live teaching flow
-- `/workflows` — saved workflow library
-- `/activity` — workflow events and sponsor receipts
-- `/connections` — live integration readiness
+The interface stays honest when a service is missing: unavailable integrations remain gray and the live agent path stays disabled until it is ready.
 
-Use **Quick Demo** on `/teach` for the stage sequence, or type a custom workflow to use the live agent engine.
+## Environment
 
-Before the live path can call a model, run `npm exec -- eve dev` from `engine/` and enter `/login` in Eve's interactive UI. Copy `engine/.env.example` to your local environment and configure Agent37, Supabase, Monid, and the InstaCloud wake secret there; never place secrets in the browser bundle.
+Keep these values in `engine/.env.local`. That file is ignored by Git.
 
-## Demo controls
+```dotenv
+AGENT37_API_KEY=
+AGENT37_INSTANCE_ID=
+MONID_API_KEY=
+OPENAI_API_KEY=
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+INSTA_CRON_SECRET=
+```
 
-- **Quick Demo** runs a deterministic, explicitly labeled stage fixture.
-- **Teach your own workflow** starts a durable agent onboarding session and persists a real workflow.
-- Frequency and time-cost inputs produce a transparent monthly impact estimate.
-- Click the engine-status pill for live integration readiness and the next setup action.
-- **Reset** or `R` returns to the opening state.
-- `M` toggles sound.
-- The final **Download report.csv** button creates a real twelve-row export.
+Apply [`supabase/migrations/20261007221500_initial_lasttime.sql`](supabase/migrations/20261007221500_initial_lasttime.sql) to a Supabase project before enabling production storage.
 
-## Sponsor architecture
+## Demo in three minutes
 
-- **Agent37**: persistent worker runtime and scheduled execution
-- **OpenAI**: receipt understanding and action-to-skill compilation
-- **Supabase**: workflow events, memory, run state, and artifacts
-- **Monid**: live merchant and entity verification, with paid run IDs retained as evidence
-- **InstaCloud**: deploys the complete product and schedules secure wake-ups for recurring workflows
+1. Open **Teach** and run the 20-second expense demo.
+2. Let the crew complete the obvious steps and stop at the dinner-policy decision.
+3. Answer once, resume the workflow, and download the completed report.
+4. Open **Activity** to show the actual Agent37 and Monid receipts.
+5. Open **Connections** to show that Supabase and InstaCloud are live dependencies.
 
-## Product runtime
+## Stack
 
-- Eve provides durable, resumable learning sessions and streams real agent events to the UI.
-- Learned workflows, workflow runs, and run events persist to a local atomic JSON store during development and automatically use Supabase when its server credentials are present.
-- `start_workflow_run` is a typed, approval-gated tool that calls Agent37's live API; it returns a blocked state when Agent37 is not configured instead of fabricating output.
-- Approved workflow inputs with a `merchantDomain` are verified through Monid before Agent37 receives the run. The result returns both provider IDs as a proof receipt.
-- `/api/integration-proof` reads recent sessions and verification runs directly from Agent37 and Monid, exposing IDs and status without exposing credentials.
-- `/api/workspace` reads the user's real workflows, runs, and events. It uses Supabase when configured and the atomic local store during development.
-- `/api/instacloud/wake` is a server-only, secret-protected endpoint for an InstaCloud cron trigger. It dispatches an actual Agent37 run and stores the resulting proof receipt.
-- The browser checks the runtime and model connection on load, and disables the live path when setup is incomplete.
+`JavaScript` · `TypeScript` · `Eve` · `OpenAI` · `Agent37` · `Monid` · `Supabase` · `InstaCloud` · `Vercel`
 
-## Supabase setup
+---
 
-Create a Supabase project, then run [`supabase/migrations/20261007221500_initial_lasttime.sql`](supabase/migrations/20261007221500_initial_lasttime.sql) in the SQL editor. The migration creates:
-
-- `workflows`
-- `workflow_runs`
-- `workflow_events`
-- `integration_receipts`
-
-It includes foreign keys, composite indexes, ownership constraints, updated-at triggers, row-level security, and authenticated-owner policies. Set `SUPABASE_URL` and the server-only `SUPABASE_SERVICE_ROLE_KEY` in `engine/.env.local`. The UI marks Supabase connected only after it can successfully query the schema.
-
-## InstaCloud deployment
-
-The root [`Dockerfile`](Dockerfile) builds the Eve runtime and launches it together with the product server through [`start.mjs`](start.mjs). After linking an InstaCloud project with the official CLI, deploy this directory and configure the same server-side variables used locally.
-
-For recurring jobs, point an InstaCloud schedule at `POST /api/instacloud/wake` with the `x-lasttime-cron-secret` header matching `INSTA_CRON_SECRET`. The endpoint accepts a real `workflowId`; it never substitutes a hardcoded demo workflow.
-
-## Security note
-
-`npm audit` currently reports one high-severity transitive `undici` advisory through the Eve/`just-bash` build toolchain. npm's automatic recommendation is a major Eve downgrade, so it is intentionally not applied to this hackathon build. Recheck and upgrade the upstream packages before a public production launch.
+<div align="center">
+  Built for the <strong>Build an Agent Hackathon</strong> on October 7, 2026.
+</div>
