@@ -1,0 +1,12 @@
+{
+  "name": "lasttime",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:web": "node --env-file-if-exists=engine/.env.local server.mjs",
+    "dev:engine": "cd engine && npm exec -- eve dev --no-ui",
+    "start": "node start.mjs",
+    "build": "npm --prefix engine run build",
+    "typecheck": "npm --prefix engine run typecheck"
+  }
+}

@@ -1,0 +1,26 @@
+
+# Local agent credentials
+.insta/agent-session.json
+
+# Local: the control plane this machine linked against
+.insta/link-plane.json
+
+.insta/.agent-session-*.tmp
+
+# InstaCloud: local observe-hook state (regenerated per machine, not source)
+.insta/observe/
+.insta/audit.jsonl
+
+# InstaCloud: agent skills installed by `npx skills add` (regenerable, not source)
+.claude/skills/
+.agents/skills/
+.github/skills/
+skills-lock.json
+
+# Local development state
+.gstack/
+.DS_Store
+node_modules/
+.env*
+!.env.example
+!**/.env.example

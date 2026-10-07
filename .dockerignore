@@ -1,0 +1,11 @@
+.git
+.gstack
+.insta
+engine/.git
+engine/.env*
+engine/.data
+engine/.eve
+engine/.output
+engine/node_modules
+**/.DS_Store
+npm-debug.log*
