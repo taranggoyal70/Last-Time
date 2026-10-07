@@ -85,7 +85,7 @@ npm run dev:engine
 npm run dev:web
 ```
 
-Open [localhost:4173/teach](http://localhost:4173/teach).
+Open the deployed product at [lasttime-umber.vercel.app/teach](https://lasttime-umber.vercel.app/teach).
 
 The interface stays honest when a service is missing: unavailable integrations remain gray and the live agent path stays disabled until it is ready.
 
