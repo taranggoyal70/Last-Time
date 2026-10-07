@@ -1,0 +1,7 @@
+import { randomUUID } from "node:crypto";
+import { defineTool } from "eve/tools";
+import { z } from "zod";
+import { ownerKeyFromContext } from "../lib/identity";
+import { saveWorkflow,storageMode } from "../lib/store";
+import type { Workflow } from "../lib/types";
+export default defineTool({description:"Save a reusable workflow learned from one concrete demonstration. Use only after the trigger, ordered actions, required connections, approval boundaries, and success criteria are known.",inputSchema:z.object({name:z.string().min(3).max(100),goal:z.string().min(5).max(500),trigger:z.string().min(3).max(500),steps:z.array(z.object({application:z.string().min(1),action:z.string().min(1),target:z.string().min(1),value:z.string().optional(),writesExternalState:z.boolean(),requiresApproval:z.boolean()})).min(1).max(30),requiredConnections:z.array(z.string().min(1)).max(20),successCriteria:z.array(z.string().min(1)).min(1).max(10)}),label:{start:({name})=>`Learn workflow: ${name}`},async execute(input,ctx){const now=new Date().toISOString();const workflow:Workflow={id:`wf_${randomUUID()}`,ownerKey:ownerKeyFromContext(ctx),name:input.name,goal:input.goal,trigger:input.trigger,steps:input.steps.map((step,index)=>({...step,order:index+1})),requiredConnections:input.requiredConnections,successCriteria:input.successCriteria,status:"ready",createdAt:now,updatedAt:now};await saveWorkflow(workflow);return{workflow,storage:storageMode(),execution:"live"}}});

@@ -1,0 +1,9 @@
+export const WORKFLOW_STATUSES = ["draft", "ready", "paused", "archived"] as const;
+export const RUN_STATUSES = ["queued", "running", "waiting_for_approval", "completed", "failed", "blocked"] as const;
+export type WorkflowStatus = (typeof WORKFLOW_STATUSES)[number];
+export type RunStatus = (typeof RUN_STATUSES)[number];
+export type WorkflowStep = { order:number; application:string; action:string; target:string; value?:string; writesExternalState:boolean; requiresApproval:boolean };
+export type Workflow = { id:string; ownerKey:string; name:string; goal:string; trigger:string; steps:WorkflowStep[]; requiredConnections:string[]; successCriteria:string[]; status:WorkflowStatus; createdAt:string; updatedAt:string };
+export type WorkflowRun = { id:string; workflowId:string; ownerKey:string; status:RunStatus; input:Record<string,unknown>; agent37SessionId?:string; output?:Record<string,unknown>; error?:string; createdAt:string; updatedAt:string };
+export type WorkflowEvent = { id:string; runId:string; ownerKey:string; sequence:number; type:string; data:Record<string,unknown>; createdAt:string };
+export type StoreData = { workflows:Workflow[]; runs:WorkflowRun[]; events:WorkflowEvent[] };

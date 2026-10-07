@@ -1,0 +1,2 @@
+import { defineTool } from "eve/tools";import { z } from "zod";import { ownerKeyFromContext } from "../lib/identity";import { listWorkflows,storageMode } from "../lib/store";
+export default defineTool({description:"List the current user's saved reusable workflows and their connection requirements.",inputSchema:z.object({}),async execute(_input,ctx){const workflows=await listWorkflows(ownerKeyFromContext(ctx));return{workflows,count:workflows.length,storage:storageMode()}}});
